@@ -12,7 +12,7 @@ const skillIconColors: Record<string, string> = {
   C: '#A8B9CC', 'C++': '#00599C', Java: '#ED8B00', JavaScript: '#F7DF1E', TypeScript: '#3178C6', Python: '#3776AB', HTML5: '#E34F26', CSS3: '#1572B6', React: '#61DAFB', 'Next.js': 'var(--ink)', 'Node.js': '#5FA04E', Express: 'var(--ink)', Flutter: '#02569B', 'Tailwind CSS': '#06B6D4', 'Framer Motion': '#0055FF', MongoDB: '#47A248', MySQL: '#4479A1', PostgreSQL: '#4169E1', Git: '#F05032', GitHub: 'var(--ink)', Docker: '#2496ED', Linux: '#FCC624', Arduino: '#00979D', Postman: '#FF6C37', Figma: '#F24E1E', AWS: '#FF9900',
 }
 const socialIcons: Record<string, ComponentType> = { Facebook: FaFacebookF, Instagram: FaInstagram, WhatsApp: FaWhatsapp, LinkedIn: FaLinkedinIn, Discord: FaDiscord, 'X (Twitter)': FaXTwitter, Reddit: FaRedditAlien }
-const navLinks = [{ label: 'About', id: 'about' }, { label: 'Skills', id: 'skills' }, { label: 'Experience', id: 'experience' }, { label: 'Work', id: 'work' }, { label: 'Achievements', id: 'achievements' }, { label: 'News Articles', id: 'articles' }, { label: 'Contact', id: 'contact' }]
+const navLinks = [{ label: 'About', id: 'about-profile' }, { label: 'Skills', id: 'skills' }, { label: 'Experience', id: 'experience' }, { label: 'Work', id: 'work' }, { label: 'Achievements', id: 'achievements' }, { label: 'News Articles', id: 'articles' }, { label: 'Contact', id: 'contact' }]
 
 function App() {
   const [dark, setDark] = useState(false)
@@ -64,7 +64,7 @@ function App() {
 
   return <div className="site-shell">
     <header className="topbar">
-      <a className="wordmark" href="#about" aria-label="Shahriar Chowdhury home">SC<span>.</span></a>
+      <a className="wordmark" href="#home" aria-label="Shahriar Chowdhury home">SC<span>.</span></a>
       <nav className={`nav-links ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation">
         {navLinks.map((link) => <a key={link.id} className={active === link.id ? 'active' : ''} href={`#${link.id}`} onClick={() => setMenuOpen(false)}>{link.label}</a>)}
       </nav>
@@ -76,20 +76,57 @@ function App() {
     </header>
 
     <main>
-      <section id="about" className="hero section-anchor">
+      <section id="home" className="hero section-anchor">
         <div className="hero-inner">
           <div className="hero-copy">
+            <span className="hero-system-label"><i/> PERSONAL PORTFOLIO · 2026</span>
             <motion.h1 initial="hidden" animate="show" variants={{ hidden: {}, show: { transition: { staggerChildren: 0.13, delayChildren: 0.2 } } }}>
-              <motion.span variants={{ hidden: { opacity: 0, y: 36 }, show: { opacity: 1, y: 0 } }}>MD. SHAHRIAR</motion.span>
-              <motion.span variants={{ hidden: { opacity: 0, y: 36 }, show: { opacity: 1, y: 0 } }}>CHOWDHURY<span className="hero-period">.</span></motion.span>
+              <motion.span variants={{ hidden: { opacity: 0, y: 36 }, show: { opacity: 1, y: 0 } }}>Hello, I’m</motion.span>
+              <motion.span variants={{ hidden: { opacity: 0, y: 36 }, show: { opacity: 1, y: 0 } }}>Md. Shahriar</motion.span>
+              <motion.span variants={{ hidden: { opacity: 0, y: 36 }, show: { opacity: 1, y: 0 } }}>Chowdhury<span className="hero-period">.</span></motion.span>
             </motion.h1>
+            <div className="hero-role"><span>&lt; CSE Student /&gt;</span> Aspiring Full-Stack Developer</div>
             <motion.div className="hero-bottom" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55, duration: 0.5 }}>
-              <p>Hi, I’m <strong>Md. Shahriar Chowdhury</strong>, a Computer Science and Engineering student and aspiring Full-Stack Developer passionate about building modern, responsive, and user-friendly applications.</p>
+              <p>A Computer Science and Engineering student passionate about building modern, responsive, and user-friendly applications.</p>
             </motion.div>
+            <div className="hero-actions"><a href="#about-profile" className="hero-action-primary"><FiPlay/> Explore About</a><a href="#work" className="hero-action-secondary"><FiArrowUpRight/> View Projects</a></div>
+            <div className="loaded-modules"><span>LOADED_MODULES:</span>{['REACT','NEXT.JS','NODE.JS','TYPESCRIPT','PYTHON'].map((module)=><b key={module}>{module}</b>)}</div>
           </div>
-          <motion.figure className="hero-photo" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.65, delay: 0.35 }}>
-            <img src="/Images/shahriar-portrait.jpeg" alt="Portrait of Md. Shahriar Chowdhury" fetchPriority="high" />
-          </motion.figure>
+          <motion.div className="profile-editor" {...reveal}>
+            <div className="profile-titlebar"><div className="window-lights" aria-hidden="true"><i/><i/><i/></div><div><span className="profile-tab-dot"/> portfolio.tsx</div></div>
+            <div className="profile-code" aria-label="Portfolio profile code">
+              <div className="code-line"><span>1</span><code className="code-comment">// Welcome to my workspace</code></div>
+              <div className="code-line"><span>2</span><code><b>import</b> {'{'} <strong>Developer</strong> {'}'} <b>from</b> <i>'./portfolio'</i>;</code></div>
+              <div className="code-line blank"><span>3</span><code>&nbsp;</code></div>
+              <div className="code-line"><span>4</span><code><b>const</b> <em>Portfolio</em> = () =&gt; {'{'}</code></div>
+              <div className="code-line"><span>5</span><code>&nbsp;&nbsp;<b>return</b> (</code></div>
+              <div className="code-line"><span>6</span><code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;<strong>Developer</strong></code></div>
+              <div className="code-line"><span>7</span><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>name</em>=<i>"Md. Shahriar Chowdhury"</i></code></div>
+              <div className="code-line"><span>8</span><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>role</em>=<i>"CSE Student &amp; Aspiring Full-Stack Developer"</i></code></div>
+              <div className="code-line"><span>9</span><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>focus</em>=<i>"Modern, responsive applications"</i></code></div>
+              <div className="code-line"><span>10</span><code>&nbsp;&nbsp;&nbsp;&nbsp;/&gt;</code></div>
+              <div className="code-line"><span>11</span><code>&nbsp;&nbsp;);</code></div>
+              <div className="code-line"><span>12</span><code>{'}'};</code></div>
+            </div>
+            <div className="profile-actions"><a href="#about-profile" className="run-profile"><FiPlay /> Run Profile</a><a href="#work" className="view-projects"><FiArrowUpRight /> View Projects</a></div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="about-profile" className="about-system section-anchor">
+        <motion.h2 className="about-system-title" {...reveal}><span>›</span> # About.system</motion.h2>
+        <div className="about-system-grid">
+          <motion.article className="about-profile-card" {...reveal}>
+            <div className="about-avatar"><img src="/Images/shahriar-portrait.jpeg" alt="Portrait of Md. Shahriar Chowdhury" loading="lazy"/><i title="Profile image"/></div>
+            <dl><div><dt>OPERATOR</dt><dd>MD. SHAHRIAR CHOWDHURY</dd></div><div><dt>ROLE</dt><dd>CSE STUDENT</dd></div><div><dt>FOCUS</dt><dd>ASPIRING FULL-STACK DEVELOPER</dd></div><div><dt>LOCATION</dt><dd>YOUR CITY, COUNTRY</dd></div></dl>
+          </motion.article>
+          <div className="about-system-right">
+            <motion.article className="about-terminal" {...reveal}>
+              <div className="terminal-bar"><span>›_</span> user_profile.log</div>
+              <div className="terminal-body"><h3>➜ whoami</h3><p>Computer Science and Engineering student and aspiring Full-Stack Developer passionate about building modern, responsive, and user-friendly applications.</p><h3>➜ cat focus.txt</h3><p>Exploring languages, frameworks, databases, and tools to create useful web applications with thoughtful, user-friendly experiences.</p></div>
+            </motion.article>
+            <div className="about-stats"><motion.div {...reveal}><span>⌘ &nbsp;EDUCATION</span><b>CSE</b><small>STUDENT</small></motion.div><motion.div {...reveal}><span>&lt;/&gt; &nbsp;SKILLS</span><b>26</b><small>TECHNOLOGIES</small></motion.div><motion.div {...reveal}><span>✦ &nbsp;RECOGNITION</span><b>02</b><small>AWARDS</small></motion.div></div>
+          </div>
         </div>
       </section>
 
@@ -142,7 +179,7 @@ function App() {
           </form></div>
           <div className="social-area"><span className="section-kicker">FIND ME AROUND THE WEB</span><div className="social-grid">{socials.map((social) => { const Icon = socialIcons[social.label]; return <a key={social.label} href={social.href} aria-label={social.label} target="_blank" rel="noreferrer" title={social.label}><Icon /></a> })}</div><p>All social links are placeholders. Swap in your profiles.</p></div>
         </motion.div>
-        <div className="contact-footer"><a href="#about" className="wordmark">SC<span>.</span></a><span>MADE WITH INTENTION · 2026</span><a href="#about">BACK TO TOP ↑</a></div>
+        <div className="contact-footer"><a href="#home" className="wordmark">SC<span>.</span></a><span>MADE WITH INTENTION · 2026</span><a href="#home">BACK TO TOP ↑</a></div>
       </section>
     </main>
   </div>
