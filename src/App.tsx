@@ -1,10 +1,21 @@
-import { useEffect, useRef, useState, type ComponentType, type FormEvent } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState, type ComponentType, type FormEvent } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion'
 import { FiArrowDownRight, FiArrowUpRight, FiAward, FiCheck, FiMail, FiMenu, FiMoon, FiPlay, FiSun, FiX } from 'react-icons/fi'
 import { FaAws, FaFacebookF, FaFigma, FaGithub, FaInstagram, FaLinkedinIn, FaLinux, FaPinterestP, FaRedditAlien } from 'react-icons/fa6'
 import { SiArduino, SiC, SiCplusplus, SiCss, SiDocker, SiExpress, SiFlutter, SiFramer, SiGit, SiHtml5, SiJavascript, SiMongodb, SiMysql, SiNextdotjs, SiNodedotjs, SiOpenjdk, SiPostgresql, SiPostman, SiPython, SiReact, SiTailwindcss, SiTypescript } from 'react-icons/si'
 import GithubActivity from './components/GithubActivity'
+import CursorGrid from './components/CursorGrid'
 import { achievements, journeyEntries, newsArticle, newsletters, profiles, projects, skillGroups, socials } from './data/portfolio'
+
+const Shuffle = lazy(() => import('./components/Shuffle'))
+
+function SkillsMarquee() {
+  const skills = skillGroups.flatMap((group) => group.items)
+  return <section className="skills-marquee" aria-label="Skills and technologies">
+    <div className="skills-marquee-viewport" aria-hidden="true"><div className="skills-marquee-track">{[0, 1].map((copy) => <div className="skills-marquee-set" key={copy}>{skills.map((skill) => <span className="skills-marquee-item" key={`${copy}-${skill}`}>{skill}</span>)}</div>)}</div></div>
+    <span className="skills-marquee-sr-only">Skills and technologies: {skills.join(', ')}</span>
+  </section>
+}
 
 const iconBySkill: Record<string, ComponentType<{ className?: string }>> = {
   C: SiC, 'C++': SiCplusplus, Java: SiOpenjdk, JavaScript: SiJavascript, TypeScript: SiTypescript, Python: SiPython, HTML5: SiHtml5, CSS3: SiCss, React: SiReact, 'Next.js': SiNextdotjs, 'Node.js': SiNodedotjs, Express: SiExpress, Flutter: SiFlutter, 'Tailwind CSS': SiTailwindcss, 'Framer Motion': SiFramer, MongoDB: SiMongodb, MySQL: SiMysql, PostgreSQL: SiPostgresql, Git: SiGit, GitHub: FaGithub, Docker: SiDocker, Linux: FaLinux, Arduino: SiArduino, Postman: SiPostman, Figma: FaFigma, AWS: FaAws,
@@ -62,8 +73,10 @@ function App() {
   }
 
   const reveal = { initial: { opacity: 0, y: reduceMotion ? 0 : 22 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.18 }, transition: { duration: reduceMotion ? 0 : 0.55 } }
+  const headlineReveal = { initial: { opacity: 0, y: reduceMotion ? 0 : 28 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.45 }, transition: { duration: reduceMotion ? 0 : 0.65, ease: [0.22, 1, 0.36, 1] as const } }
 
-  return <div className="site-shell">
+  return <CursorGrid className="site-cursor-grid" cellSize={72} color={dark ? '#ff783e' : '#242424'} gridColor={dark ? '#ff783e' : '#242424'} radius={150} highlight="area" gridStyle="lines" holdTime={300} fadeDuration={700} fillOpacity={0.08} gridOpacity={0.025} spotlight={0.75} maxOpacity={0.72} clickPulse pulseSpeed={650} edgeFade={0.08} dpr={1} lightMode={!dark}>
+    <div className="site-shell">
     <header className="topbar">
       <a className="wordmark" href="#home" aria-label="Shahriar Chowdhury home">SC<span>.</span></a>
       <nav className={`nav-links ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation">
@@ -76,16 +89,16 @@ function App() {
       </div>
     </header>
 
+    <SkillsMarquee />
+
     <main>
       <section id="home" className="hero section-anchor">
         <div className="hero-inner">
           <div className="hero-copy">
             <span className="hero-system-label"><i/> PERSONAL PORTFOLIO · 2026</span>
-            <motion.h1 initial="hidden" animate="show" variants={{ hidden: {}, show: { transition: { staggerChildren: 0.13, delayChildren: 0.2 } } }}>
-              <motion.span variants={{ hidden: { opacity: 0, y: 36 }, show: { opacity: 1, y: 0 } }}>Hello, I’m</motion.span>
-              <motion.span variants={{ hidden: { opacity: 0, y: 36 }, show: { opacity: 1, y: 0 } }}>Md. Shahriar</motion.span>
-              <motion.span variants={{ hidden: { opacity: 0, y: 36 }, show: { opacity: 1, y: 0 } }}>Chowdhury<span className="hero-period">.</span></motion.span>
-            </motion.h1>
+            <Suspense fallback={<h1 className="hero-shuffle-title">Hi, I’m&nbsp;Shahriar</h1>}>
+              <Shuffle text="Hi, I’m Shahriar" className="hero-shuffle-title" tag="h1" textAlign="left" effect="slide" shuffleDirection="right" duration={0.35} animationMode="evenodd" shuffleTimes={1} ease="power3.out" stagger={0.03} threshold={0.1} triggerOnce triggerOnHover respectReducedMotion color="var(--orange)" accentColor="#ffd0ad" style={{ whiteSpace: 'normal', textAlign: 'left' }} />
+            </Suspense>
             <div className="hero-role"><span>&lt; CSE Student /&gt;</span> Aspiring Full-Stack Developer</div>
             <motion.div className="hero-bottom" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55, duration: 0.5 }}>
               <p>A Computer Science and Engineering student passionate about building modern, responsive, and user-friendly applications.</p>
@@ -115,7 +128,7 @@ function App() {
       </section>
 
       <section id="about-profile" className="about-system section-anchor">
-        <motion.h2 className="about-system-title" {...reveal}><span>›</span> # About.system</motion.h2>
+        <motion.h2 className="about-system-title" {...headlineReveal}><span>›</span> # About.system</motion.h2>
         <div className="about-system-grid">
           <motion.article className="about-profile-card" {...reveal}>
             <div className="about-avatar"><img src="/Images/Shahriar-image/shahriar-portrait.jpeg" alt="Portrait of Md. Shahriar Chowdhury" loading="lazy"/><i title="Profile image"/></div>
@@ -124,7 +137,7 @@ function App() {
           <div className="about-system-right">
             <motion.article className="about-terminal" {...reveal}>
               <div className="terminal-bar"><span>›_</span> user_profile.log</div>
-              <div className="terminal-body"><h3>➜ whoami</h3><p>Computer Science and Engineering student and aspiring Full-Stack Developer passionate about building modern, responsive, and user-friendly applications.</p><h3>➜ cat focus.txt</h3><p>Exploring languages, frameworks, databases, and tools to create useful web applications with thoughtful, user-friendly experiences.</p></div>
+              <div className="terminal-body"><motion.h3 {...headlineReveal}>➜ whoami</motion.h3><p>Computer Science and Engineering student and aspiring Full-Stack Developer passionate about building modern, responsive, and user-friendly applications.</p><motion.h3 {...headlineReveal}>➜ cat focus.txt</motion.h3><p>Exploring languages, frameworks, databases, and tools to create useful web applications with thoughtful, user-friendly experiences.</p></div>
             </motion.article>
             <div className="about-stats"><motion.div {...reveal}><span>⌘ &nbsp;EDUCATION</span><b>CSE</b><small>STUDENT</small></motion.div><motion.div {...reveal}><span>&lt;/&gt; &nbsp;SKILLS</span><b>26</b><small>TECHNOLOGIES</small></motion.div><motion.div {...reveal}><span>✦ &nbsp;RECOGNITION</span><b>02</b><small>AWARDS</small></motion.div></div>
           </div>
@@ -132,53 +145,53 @@ function App() {
       </section>
 
       <section id="skills" className="skills-section section-anchor">
-        <motion.div className="section-heading light-heading" {...reveal}><span className="section-kicker">WHAT I WORK WITH</span><h2>Skills &amp; Expertise<span className="pink-dot">.</span></h2><p>A collection of technologies I’m proficient with, from languages to frameworks and tools.</p></motion.div>
-        <div className="skill-groups">{skillGroups.map((group, groupIndex) => <motion.div key={group.name} className="skill-group" {...reveal} transition={{ ...reveal.transition, delay: groupIndex * 0.06 }}><h3>{group.name}<span>{String(group.items.length).padStart(2, '0')}</span></h3><div className="skill-chips">{group.items.map((skill, index) => { const Icon = iconBySkill[skill]; return <motion.div key={skill} className="skill-chip" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: reduceMotion ? 0 : index * 0.035 }}><span className="skill-icon" style={{ color: skillIconColors[skill] }}><Icon /></span><span>{skill}</span></motion.div> })}</div></motion.div>)}</div>
+        <motion.div className="section-heading light-heading" {...reveal}><span className="section-kicker">WHAT I WORK WITH</span><motion.h2 {...headlineReveal}>Skills &amp; Expertise<span className="pink-dot">.</span></motion.h2><p>A collection of technologies I’m proficient with, from languages to frameworks and tools.</p></motion.div>
+        <div className="skill-groups">{skillGroups.map((group, groupIndex) => <motion.div key={group.name} className="skill-group" {...reveal} transition={{ ...reveal.transition, delay: groupIndex * 0.06 }}><motion.h3 {...headlineReveal}>{group.name}<span>{String(group.items.length).padStart(2, '0')}</span></motion.h3><div className="skill-chips">{group.items.map((skill, index) => { const Icon = iconBySkill[skill]; return <motion.div key={skill} className="skill-chip" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: reduceMotion ? 0 : index * 0.035 }}><span className="skill-icon" style={{ color: skillIconColors[skill] }}><Icon /></span><span>{skill}</span></motion.div> })}</div></motion.div>)}</div>
         <motion.div className="skill-group coding-profiles" {...reveal}>
-          <h3>Coding Profiles</h3>
+          <motion.h3 {...headlineReveal}>Coding Profiles</motion.h3>
           <div className="skill-chips">{profiles.map((profile, index) => { const Icon = profile.icon; return <motion.a key={profile.name} className="skill-chip coding-profile-chip" href={profile.url} target="_blank" rel="noopener noreferrer" aria-label={`${profile.name} profile for ${profile.username}`} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: reduceMotion ? 0 : index * 0.045 }}><span className="skill-icon"><Icon /></span><span className="coding-profile-text">{profile.name}<span className="profile-username"> · {profile.username}</span></span><FiArrowUpRight className="profile-external-icon" aria-hidden="true" /></motion.a> })}</div>
         </motion.div>
         <div className="section-foot dark-foot"><span>01 — CAPABILITIES</span><span>ALWAYS LEARNING <i /></span></div>
       </section>
 
       <section id="experience" className="journey-section section-anchor">
-        <motion.div className="section-heading journey-heading" {...reveal}><span className="section-kicker">THE PATH SO FAR</span><h2>My Journey<span>.</span></h2><p>A few milestones along the way. More chapters to come.</p></motion.div>
-        <div className="timeline" ref={timelineRef}><div className="timeline-track"/><motion.div className="timeline-progress" style={{ scaleY: reduceMotion ? 1 : timelineLineProgress }} />{journeyEntries.map((entry, index) => <motion.article key={`${entry.title}-${index}`} className={`timeline-entry ${index % 2 ? 'right' : 'left'}`} {...reveal} transition={{ ...reveal.transition, delay: reduceMotion ? 0 : 0.06 }}><motion.div className="timeline-dot" initial={{ scale: 0.6, opacity: 0.5 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: reduceMotion ? 0 : 0.35 }} /><div className="timeline-card"><span className="timeline-date">{entry.date}</span><h3>{entry.title}</h3><p className="timeline-org">{entry.organization}</p><p>{entry.description}</p><span className="placeholder-badge">PLACEHOLDER</span></div></motion.article>)}</div>
+        <motion.div className="section-heading journey-heading" {...reveal}><span className="section-kicker">THE PATH SO FAR</span><motion.h2 {...headlineReveal}>My Journey<span>.</span></motion.h2><p>A few milestones along the way. More chapters to come.</p></motion.div>
+        <div className="timeline" ref={timelineRef}><div className="timeline-track"/><motion.div className="timeline-progress" style={{ scaleY: reduceMotion ? 1 : timelineLineProgress }} />{journeyEntries.map((entry, index) => <motion.article key={`${entry.title}-${index}`} className={`timeline-entry ${index % 2 ? 'right' : 'left'}`} {...reveal} transition={{ ...reveal.transition, delay: reduceMotion ? 0 : 0.06 }}><motion.div className="timeline-dot" initial={{ scale: 0.6, opacity: 0.5 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: reduceMotion ? 0 : 0.35 }} /><div className="timeline-card"><span className="timeline-date">{entry.date}</span><motion.h3 {...headlineReveal}>{entry.title}</motion.h3><p className="timeline-org">{entry.organization}</p><p>{entry.description}</p><span className="placeholder-badge">PLACEHOLDER</span></div></motion.article>)}</div>
         <div className="section-foot dark-foot"><span>02 — EXPERIENCE</span><span>YOUR STORY, IN PROGRESS <i /></span></div>
       </section>
 
       <section id="work" className="work-section section-anchor">
         <motion.div className="work-topline" {...reveal}><span className="section-kicker">SELECTED OUTPUT · 03</span><span>2024 — 2026</span></motion.div>
-        <motion.div className="work-title" {...reveal}><h2>Work<span>.</span></h2><span className="work-arrow"><FiArrowDownRight /></span></motion.div>
-        {projects.length ? <div className="project-grid">{projects.map((project) => <a className="project-card" key={project.title} href={project.href}><span>PROJECT / 0{projects.indexOf(project) + 1}</span><h3>{project.title}</h3><p>{project.description}</p><FiArrowUpRight /></a>)}</div> : <motion.div className="empty-work" {...reveal}><span className="empty-orbit"><i /><i /><i /></span><div><span className="section-kicker">GOOD THINGS TAKE SHAPE</span><h3>Projects coming soon<span>.</span></h3><p>This space is ready for the things I build next.</p></div><span className="empty-index">NO. 001<br />IN PROGRESS</span></motion.div>}
+        <motion.div className="work-title" {...reveal}><motion.h2 {...headlineReveal}>Work<span>.</span></motion.h2><span className="work-arrow"><FiArrowDownRight /></span></motion.div>
+        {projects.length ? <div className="project-grid">{projects.map((project) => <a className="project-card" key={project.title} href={project.href}><span>PROJECT / 0{projects.indexOf(project) + 1}</span><motion.h3 {...headlineReveal}>{project.title}</motion.h3><p>{project.description}</p><FiArrowUpRight /></a>)}</div> : <motion.div className="empty-work" {...reveal}><span className="empty-orbit"><i /><i /><i /></span><div><span className="section-kicker">GOOD THINGS TAKE SHAPE</span><motion.h3 {...headlineReveal}>Projects coming soon<span>.</span></motion.h3><p>This space is ready for the things I build next.</p></div><span className="empty-index">NO. 001<br />IN PROGRESS</span></motion.div>}
         <div className="section-foot"><span>03 — SELECTED WORK</span><span>MORE SOON <i /></span></div>
       </section>
 
       <GithubActivity />
 
       <section id="achievements" className="achievements-section section-anchor">
-        <motion.div className="section-heading" {...reveal}><span className="section-kicker">MILESTONES &amp; RECOGNITION</span><h2>Achievements<span>.</span></h2><p>Recognition from robotics competitions and project showcases.</p></motion.div>
-        <div className="achievement-list">{achievements.map((achievement, index) => <motion.article className="achievement-card" key={achievement.title} {...reveal} transition={{ ...reveal.transition, delay: index * 0.08 }}><div className="achievement-visuals">{achievement.images.map((img) => <div className="achievement-image" key={img.src}><img src={img.src} alt={img.alt} loading="lazy" /></div>)}<span className="achievement-number">#{String(index + 1).padStart(2, '0')}</span></div><div className="achievement-copy"><span className="achievement-kicker">RECOGNITION · {achievement.year}</span><h3>{achievement.title}</h3><div className="achievement-description"><FiAward /><p>{achievement.description}</p></div><div className="achievement-meta"><div><span>STATUS</span><strong>{achievement.status}</strong></div><div><span>CATEGORY</span><strong>{achievement.category}</strong></div></div><div className="achievement-year"><i /> EVENT YEAR <b>{achievement.year}</b></div></div></motion.article>)}</div>
+        <motion.div className="section-heading" {...reveal}><span className="section-kicker">MILESTONES &amp; RECOGNITION</span><motion.h2 {...headlineReveal}>Achievements<span>.</span></motion.h2><p>Recognition from robotics competitions and project showcases.</p></motion.div>
+        <div className="achievement-list">{achievements.map((achievement, index) => <motion.article className="achievement-card" key={achievement.title} {...reveal} transition={{ ...reveal.transition, delay: index * 0.08 }}><div className="achievement-visuals">{achievement.images.map((img) => <div className="achievement-image" key={img.src}><img src={img.src} alt={img.alt} loading="lazy" /></div>)}<span className="achievement-number">#{String(index + 1).padStart(2, '0')}</span></div><div className="achievement-copy"><span className="achievement-kicker">RECOGNITION · {achievement.year}</span><motion.h3 {...headlineReveal}>{achievement.title}</motion.h3><div className="achievement-description"><FiAward /><p>{achievement.description}</p></div><div className="achievement-meta"><div><span>STATUS</span><strong>{achievement.status}</strong></div><div><span>CATEGORY</span><strong>{achievement.category}</strong></div></div><div className="achievement-year"><i /> EVENT YEAR <b>{achievement.year}</b></div></div></motion.article>)}</div>
         <div className="section-foot"><span>05 — ACHIEVEMENTS</span><span>COMPETITION HIGHLIGHTS <i /></span></div>
       </section>
 
       <section id="articles" className="articles-section section-anchor">
-        <motion.div className="section-heading" {...reveal}><span className="section-kicker">PRESS &amp; COVERAGE</span><h2>Media<span>.</span></h2></motion.div>
+        <motion.div className="section-heading" {...reveal}><span className="section-kicker">PRESS &amp; COVERAGE</span><motion.h2 {...headlineReveal}>Media<span>.</span></motion.h2></motion.div>
         <motion.article className="news-feature" {...reveal}>
-          <div className="news-story"><h3 lang="bn">{newsArticle.title}</h3><div className="news-body">{newsArticle.paragraphs.map((paragraph) => <p key={paragraph} lang="bn">{paragraph}</p>)}</div><div className="news-buttons">{newsArticle.publications.map((publication) => <a key={publication.name} href={publication.href} target="_blank" rel="noreferrer">{publication.name}<FiArrowUpRight /></a>)}</div></div>
+          <div className="news-story"><motion.h3 lang="bn" {...headlineReveal}>{newsArticle.title}</motion.h3><div className="news-body">{newsArticle.paragraphs.map((paragraph) => <p key={paragraph} lang="bn">{paragraph}</p>)}</div><div className="news-buttons">{newsArticle.publications.map((publication) => <a key={publication.name} href={publication.href} target="_blank" rel="noreferrer">{publication.name}<FiArrowUpRight /></a>)}</div></div>
           <div className="news-clippings"><div className="news-clipping-grid">{newsArticle.publications.map((publication, index) => <a key={publication.name} className="news-clipping" href={publication.href} target="_blank" rel="noreferrer" aria-label={`Read coverage from ${publication.name}`}><span className="clipping-index">#{String(index + 1).padStart(2, '0')}</span><img src={publication.image} alt={publication.alt} loading="lazy" /></a>)}</div><span className="news-date">▦ &nbsp;{newsArticle.date}</span></div>
         </motion.article>
         <div className="section-foot"><span>06 — PRESS &amp; WRITING</span><span>2 PUBLICATIONS <i /></span></div>
       </section>
 
       <section id="newsletter" className="newsletter-section section-anchor">
-        <motion.div className="section-heading" {...reveal}><span className="section-kicker">IN THE PRESS · NEWSLETTER FEATURES</span><h2>Newsletter<span>.</span></h2><p>Newsletter coverage and features.</p></motion.div>
-        <div className="newsletter-grid">{newsletters.map((item, index) => <motion.a className="newsletter-card" key={item.src} href={item.src} target="_blank" rel="noreferrer" aria-label={`Open newsletter feature ${index + 1}`} {...reveal} transition={{ ...reveal.transition, delay: index * 0.04 }}><span>#{String(index + 1).padStart(2, '0')}</span><img src={item.src} alt={item.alt} loading="lazy" /></motion.a>)}</div>
+        <motion.div className="section-heading" {...reveal}><span className="section-kicker">IN THE PRESS · NEWSLETTER FEATURES</span><motion.h2 {...headlineReveal}>Newsletter<span>.</span></motion.h2><p>Newsletter coverage and features.</p></motion.div>
+        <div className="newsletter-grid">{newsletters.map((item, index) => <motion.a className="newsletter-card" key={item.src} href={item.src} target="_blank" rel="noreferrer" aria-label={`Open newsletter feature ${index + 1}`} {...reveal} transition={{ ...reveal.transition, delay: index * 0.04 }}><span>#{String(index + 1).padStart(2, '0')}</span><img src={item.src} alt={item.alt} loading="lazy" onError={(event) => event.currentTarget.parentElement?.classList.add('image-unavailable')} /></motion.a>)}</div>
         <div className="section-foot"><span>07 — NEWSLETTER</span><span>{String(newsletters.length).padStart(2, '0')} FEATURES <i /></span></div>
       </section>
 
       <section id="contact" className="contact-section section-anchor">
-        <motion.div className="contact-intro" {...reveal}><span className="section-kicker">HAVE SOMETHING IN MIND?</span><h2>Let’s make<br /><em>it happen.</em></h2><p>Have a project, an idea, or just want to say hello? My inbox is open.</p><div className="contact-coordinates"><span>BASED IN</span><b>YOUR CITY, COUNTRY</b><span>AVAILABLE FOR</span><b>COLLABORATIONS &amp; IDEAS</b></div></motion.div>
+        <motion.div className="contact-intro" {...reveal}><span className="section-kicker">HAVE SOMETHING IN MIND?</span><motion.h2 {...headlineReveal}>Let’s make<br /><em>it happen.</em></motion.h2><p>Have a project, an idea, or just want to say hello? My inbox is open.</p><div className="contact-coordinates"><span>BASED IN</span><b>YOUR CITY, COUNTRY</b><span>AVAILABLE FOR</span><b>COLLABORATIONS &amp; IDEAS</b></div></motion.div>
         <motion.div className="contact-form-wrap" {...reveal}>
           <div className="editor-window"><div className="editor-tab"><span className="editor-dot"/><span>TS</span><span>sendMessage.ts</span><span className="editor-tab-end">×</span></div><div className="mail-bar"><div><FiMail /><span>mail.compose</span></div><span>● SECURE CHANNEL</span></div>
           <div className="mail-meta"><div><span>to:</span><b>you@example.com</b></div><span>response: within 24h</span></div>
@@ -195,7 +208,8 @@ function App() {
         <div className="contact-footer"><a href="#home" className="wordmark">SC<span>.</span></a><span>MADE WITH INTENTION · 2026</span><a href="#home">BACK TO TOP ↑</a></div>
       </section>
     </main>
-  </div>
+    </div>
+  </CursorGrid>
 }
 
 export default App

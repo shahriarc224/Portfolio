@@ -67,8 +67,8 @@ export const newsArticle = {
     'বিজয়ী দুটি দল সদস্যরা বিইউবিটির উপাচার্য প্রফেসর ড. এ বি এম শওকত আলীর সাথে সৌজন্য সাক্ষাৎ করে। উপাচার্য শিক্ষার্থীদের এ সাফল্যে আন্তরিক অভিনন্দন ও শুভেচ্ছা জানিয়ে বলেন, এই অর্জন আমাদের শিক্ষা ও প্রযুক্তি চর্চার মানকে এগিয়ে নেবে এবং আশা করি ভবিষ্যতে তারা আরও বড় মঞ্চে বাংলাদেশের মুখ উজ্জ্বল করবে।',
   ],
   publications: [
-    { name: 'Somokal', image: '/Images/Achivements/News-artical/Somokal.png', alt: 'Somokal news article about BUBT students at the Robo Tech Olympiad', href: 'https://samakal.com/education/article/301784' },
-    { name: 'Aker Potrika', image: '/Images/Achivements/News-artical/Ajker%20Potrika.png', alt: 'Ajker Potrika news article about BUBT students at the Robo Tech Olympiad', href: 'https://www.ajkerpatrika.com/education/campus/ajporgtyihtp9' },
+    { name: 'Somokal', image: '/Images/Achivements/Media%20/Somokal.png', alt: 'Somokal news article about BUBT students at the Robo Tech Olympiad', href: 'https://samakal.com/education/article/301784' },
+    { name: 'Aker Potrika', image: '/Images/Achivements/Media%20/Ajker%20Potrika.png', alt: 'Ajker Potrika news article about BUBT students at the Robo Tech Olympiad', href: 'https://www.ajkerpatrika.com/education/campus/ajporgtyihtp9' },
   ],
 }
 
