@@ -31,8 +31,8 @@ export const achievements = [
     category: 'Project Showcase · Senior',
     year: '2025',
     images: [
-      { src: '/images/achievements/robotech-olympiad-team.jpg', alt: 'Team members with their 2nd Runner-up awards at the 5th International Robo Tech Olympiad' },
-      { src: '/images/achievements/robotech-olympiad-award.jpg', alt: 'Award poster for 2nd Runner-up in Project Showcase Senior' },
+      { src: '/Images/Achivements/5th%20international%20robo%20tech%20olympiad/508382310_1907151686730408_4338042875749306411_n.jpg', alt: 'Team members with their 2nd Runner-up awards at the 5th International Robo Tech Olympiad' },
+      { src: '/Images/Achivements/5th%20international%20robo%20tech%20olympiad/2nd%20runner%20up%20in%205th%20international%20robotech%20olympiad.jpg', alt: 'Award poster for 2nd Runner-up in Project Showcase Senior' },
     ],
   },
   {
@@ -42,8 +42,8 @@ export const achievements = [
     category: 'Project Showcase',
     year: '2025',
     images: [
-      { src: '/images/achievements/national-robotics-championship-2025.jpg', alt: 'Team receiving the 3rd Runner-up award at the National Robotics Championship 2025' },
-      { src: '/images/achievements/national-robotics-award-poster.jpg', alt: 'Team holding the National Robotics Championship 2025 third runner-up award' },
+      { src: '/Images/Achivements/NRC-2025/IMG_9707.jpg', alt: 'Team receiving the 3rd Runner-up award at the National Robotics Championship 2025' },
+      { src: '/Images/Achivements/NRC-2025/3rd%20runner%20up%20in%20international%20robotics%20championship%202025%0A.jpg', alt: 'Team holding the National Robotics Championship 2025 third runner-up award' },
     ],
   },
 ]
@@ -57,7 +57,16 @@ export const newsArticle = {
     'বিজয়ী দুটি দল সদস্যরা বিইউবিটির উপাচার্য প্রফেসর ড. এ বি এম শওকত আলীর সাথে সৌজন্য সাক্ষাৎ করে। উপাচার্য শিক্ষার্থীদের এ সাফল্যে আন্তরিক অভিনন্দন ও শুভেচ্ছা জানিয়ে বলেন, এই অর্জন আমাদের শিক্ষা ও প্রযুক্তি চর্চার মানকে এগিয়ে নেবে এবং আশা করি ভবিষ্যতে তারা আরও বড় মঞ্চে বাংলাদেশের মুখ উজ্জ্বল করবে।',
   ],
   publications: [
-    { name: 'Somokal', image: '/images/news/somokal.png', alt: 'Somokal news article about BUBT students at the Robo Tech Olympiad', href: 'https://samakal.com/education/article/301784' },
-    { name: 'Aker Potrika', image: '/images/news/ajker-potrika.png', alt: 'Ajker Potrika news article about BUBT students at the Robo Tech Olympiad', href: 'https://www.ajkerpatrika.com/education/campus/ajporgtyihtp9' },
+    { name: 'Somokal', image: '/Images/Achivements/News-artical/Somokal.png', alt: 'Somokal news article about BUBT students at the Robo Tech Olympiad', href: 'https://samakal.com/education/article/301784' },
+    { name: 'Aker Potrika', image: '/Images/Achivements/News-artical/Ajker%20Potrika.png', alt: 'Ajker Potrika news article about BUBT students at the Robo Tech Olympiad', href: 'https://www.ajkerpatrika.com/education/campus/ajporgtyihtp9' },
   ],
 }
+
+export const newsletters = [
+  { src: '/Images/Achivements/News-letter/WhatsApp%20Image%202026-11-04%20at%206.24.07%20PM.jpeg', alt: 'Newsletter feature 1' },
+  { src: '/Images/Achivements/News-letter/WhatsApp%20Image%202026-11-04%20at%206.24.07%20PM%20(1).jpeg', alt: 'Newsletter feature 2' },
+  { src: '/Images/Achivements/News-letter/WhatsApp%20Image%202026-11-04%20at%206.24.07%20PM%20(2).jpeg', alt: 'Newsletter feature 3' },
+  { src: '/Images/Achivements/News-letter/WhatsApp%20Image%202026-11-04%20at%206.24.07%20PM%20(3).jpeg', alt: 'Newsletter feature 4' },
+  { src: '/Images/Achivements/News-letter/WhatsApp%20Image%202026-11-04%20at%206.24.07%20PM%20(4).jpeg', alt: 'Newsletter feature 5' },
+  { src: '/Images/Achivements/News-letter/WhatsApp%20Image%202026-11-04%20at%206.24.07%20PM%20(5).jpeg', alt: 'Newsletter feature 6' },
+]

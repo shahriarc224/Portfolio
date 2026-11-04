@@ -3,7 +3,7 @@ import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion'
 import { FiArrowDownRight, FiArrowUpRight, FiAward, FiCheck, FiMail, FiMenu, FiMoon, FiPlay, FiSun, FiX } from 'react-icons/fi'
 import { FaAws, FaDiscord, FaFacebookF, FaFigma, FaGithub, FaInstagram, FaLinkedinIn, FaLinux, FaRedditAlien, FaWhatsapp, FaXTwitter } from 'react-icons/fa6'
 import { SiArduino, SiC, SiCplusplus, SiCss, SiDocker, SiExpress, SiFlutter, SiFramer, SiGit, SiHtml5, SiJavascript, SiMongodb, SiMysql, SiNextdotjs, SiNodedotjs, SiOpenjdk, SiPostgresql, SiPostman, SiPython, SiReact, SiTailwindcss, SiTypescript } from 'react-icons/si'
-import { achievements, journeyEntries, newsArticle, projects, skillGroups, socials } from './data/portfolio'
+import { achievements, journeyEntries, newsArticle, newsletters, projects, skillGroups, socials } from './data/portfolio'
 
 const iconBySkill: Record<string, ComponentType<{ className?: string }>> = {
   C: SiC, 'C++': SiCplusplus, Java: SiOpenjdk, JavaScript: SiJavascript, TypeScript: SiTypescript, Python: SiPython, HTML5: SiHtml5, CSS3: SiCss, React: SiReact, 'Next.js': SiNextdotjs, 'Node.js': SiNodedotjs, Express: SiExpress, Flutter: SiFlutter, 'Tailwind CSS': SiTailwindcss, 'Framer Motion': SiFramer, MongoDB: SiMongodb, MySQL: SiMysql, PostgreSQL: SiPostgresql, Git: SiGit, GitHub: FaGithub, Docker: SiDocker, Linux: FaLinux, Arduino: SiArduino, Postman: SiPostman, Figma: FaFigma, AWS: FaAws,
@@ -12,7 +12,7 @@ const skillIconColors: Record<string, string> = {
   C: '#A8B9CC', 'C++': '#00599C', Java: '#ED8B00', JavaScript: '#F7DF1E', TypeScript: '#3178C6', Python: '#3776AB', HTML5: '#E34F26', CSS3: '#1572B6', React: '#61DAFB', 'Next.js': 'var(--ink)', 'Node.js': '#5FA04E', Express: 'var(--ink)', Flutter: '#02569B', 'Tailwind CSS': '#06B6D4', 'Framer Motion': '#0055FF', MongoDB: '#47A248', MySQL: '#4479A1', PostgreSQL: '#4169E1', Git: '#F05032', GitHub: 'var(--ink)', Docker: '#2496ED', Linux: '#FCC624', Arduino: '#00979D', Postman: '#FF6C37', Figma: '#F24E1E', AWS: '#FF9900',
 }
 const socialIcons: Record<string, ComponentType> = { Facebook: FaFacebookF, Instagram: FaInstagram, WhatsApp: FaWhatsapp, LinkedIn: FaLinkedinIn, Discord: FaDiscord, 'X (Twitter)': FaXTwitter, Reddit: FaRedditAlien }
-const navLinks = [{ label: 'About', id: 'about-profile' }, { label: 'Skills', id: 'skills' }, { label: 'Experience', id: 'experience' }, { label: 'Work', id: 'work' }, { label: 'Achievements', id: 'achievements' }, { label: 'News Articles', id: 'articles' }, { label: 'Contact', id: 'contact' }]
+const navLinks = [{ label: 'About', id: 'about-profile' }, { label: 'Skills', id: 'skills' }, { label: 'Experience', id: 'experience' }, { label: 'Work', id: 'work' }, { label: 'Achievements', id: 'achievements' }, { label: 'News Articles', id: 'articles' }, { label: 'Newsletter', id: 'newsletter' }, { label: 'Contact', id: 'contact' }]
 
 function App() {
   const [dark, setDark] = useState(false)
@@ -117,7 +117,7 @@ function App() {
         <motion.h2 className="about-system-title" {...reveal}><span>›</span> # About.system</motion.h2>
         <div className="about-system-grid">
           <motion.article className="about-profile-card" {...reveal}>
-            <div className="about-avatar"><img src="/Images/shahriar-portrait.jpeg" alt="Portrait of Md. Shahriar Chowdhury" loading="lazy"/><i title="Profile image"/></div>
+            <div className="about-avatar"><img src="/Images/Shahriar-image/shahriar-portrait.jpeg" alt="Portrait of Md. Shahriar Chowdhury" loading="lazy"/><i title="Profile image"/></div>
             <dl><div><dt>OPERATOR</dt><dd>MD. SHAHRIAR CHOWDHURY</dd></div><div><dt>ROLE</dt><dd>CSE STUDENT</dd></div><div><dt>FOCUS</dt><dd>ASPIRING FULL-STACK DEVELOPER</dd></div><div><dt>LOCATION</dt><dd>YOUR CITY, COUNTRY</dd></div></dl>
           </motion.article>
           <div className="about-system-right">
@@ -162,6 +162,12 @@ function App() {
           <div className="news-clippings"><div className="news-clipping-grid">{newsArticle.publications.map((publication, index) => <a key={publication.name} className="news-clipping" href={publication.href} target="_blank" rel="noreferrer" aria-label={`Read coverage from ${publication.name}`}><span className="clipping-index">#{String(index + 1).padStart(2, '0')}</span><img src={publication.image} alt={publication.alt} loading="lazy" /></a>)}</div><span className="news-date">▦ &nbsp;{newsArticle.date}</span></div>
         </motion.article>
         <div className="section-foot"><span>05 — PRESS &amp; WRITING</span><span>2 PUBLICATIONS <i /></span></div>
+      </section>
+
+      <section id="newsletter" className="newsletter-section section-anchor">
+        <motion.div className="section-heading" {...reveal}><span className="section-kicker">IN THE PRESS · NEWSLETTER FEATURES</span><h2>Newsletter<span>.</span></h2><p>Newsletter coverage and features.</p></motion.div>
+        <div className="newsletter-grid">{newsletters.map((item, index) => <motion.a className="newsletter-card" key={item.src} href={item.src} target="_blank" rel="noreferrer" aria-label={`Open newsletter feature ${index + 1}`} {...reveal} transition={{ ...reveal.transition, delay: index * 0.04 }}><span>#{String(index + 1).padStart(2, '0')}</span><img src={item.src} alt={item.alt} loading="lazy" /></motion.a>)}</div>
+        <div className="section-foot"><span>06 — NEWSLETTER</span><span>{String(newsletters.length).padStart(2, '0')} FEATURES <i /></span></div>
       </section>
 
       <section id="contact" className="contact-section section-anchor">
