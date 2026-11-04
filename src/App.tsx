@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, type ComponentType, type FormEvent } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion'
 import { FiArrowDownRight, FiArrowUpRight, FiAward, FiCheck, FiMail, FiMenu, FiMoon, FiPlay, FiSun, FiX } from 'react-icons/fi'
-import { FaAws, FaDiscord, FaFacebookF, FaFigma, FaGithub, FaInstagram, FaLinkedinIn, FaLinux, FaRedditAlien, FaWhatsapp, FaXTwitter } from 'react-icons/fa6'
+import { FaAws, FaFacebookF, FaFigma, FaGithub, FaInstagram, FaLinkedinIn, FaLinux, FaPinterestP, FaRedditAlien } from 'react-icons/fa6'
 import { SiArduino, SiC, SiCplusplus, SiCss, SiDocker, SiExpress, SiFlutter, SiFramer, SiGit, SiHtml5, SiJavascript, SiMongodb, SiMysql, SiNextdotjs, SiNodedotjs, SiOpenjdk, SiPostgresql, SiPostman, SiPython, SiReact, SiTailwindcss, SiTypescript } from 'react-icons/si'
-import { achievements, journeyEntries, newsArticle, newsletters, projects, skillGroups, socials } from './data/portfolio'
+import GithubActivity from './components/GithubActivity'
+import { achievements, journeyEntries, newsArticle, newsletters, profiles, projects, skillGroups, socials } from './data/portfolio'
 
 const iconBySkill: Record<string, ComponentType<{ className?: string }>> = {
   C: SiC, 'C++': SiCplusplus, Java: SiOpenjdk, JavaScript: SiJavascript, TypeScript: SiTypescript, Python: SiPython, HTML5: SiHtml5, CSS3: SiCss, React: SiReact, 'Next.js': SiNextdotjs, 'Node.js': SiNodedotjs, Express: SiExpress, Flutter: SiFlutter, 'Tailwind CSS': SiTailwindcss, 'Framer Motion': SiFramer, MongoDB: SiMongodb, MySQL: SiMysql, PostgreSQL: SiPostgresql, Git: SiGit, GitHub: FaGithub, Docker: SiDocker, Linux: FaLinux, Arduino: SiArduino, Postman: SiPostman, Figma: FaFigma, AWS: FaAws,
@@ -11,8 +12,8 @@ const iconBySkill: Record<string, ComponentType<{ className?: string }>> = {
 const skillIconColors: Record<string, string> = {
   C: '#A8B9CC', 'C++': '#00599C', Java: '#ED8B00', JavaScript: '#F7DF1E', TypeScript: '#3178C6', Python: '#3776AB', HTML5: '#E34F26', CSS3: '#1572B6', React: '#61DAFB', 'Next.js': 'var(--ink)', 'Node.js': '#5FA04E', Express: 'var(--ink)', Flutter: '#02569B', 'Tailwind CSS': '#06B6D4', 'Framer Motion': '#0055FF', MongoDB: '#47A248', MySQL: '#4479A1', PostgreSQL: '#4169E1', Git: '#F05032', GitHub: 'var(--ink)', Docker: '#2496ED', Linux: '#FCC624', Arduino: '#00979D', Postman: '#FF6C37', Figma: '#F24E1E', AWS: '#FF9900',
 }
-const socialIcons: Record<string, ComponentType> = { Facebook: FaFacebookF, Instagram: FaInstagram, WhatsApp: FaWhatsapp, LinkedIn: FaLinkedinIn, Discord: FaDiscord, 'X (Twitter)': FaXTwitter, Reddit: FaRedditAlien }
-const navLinks = [{ label: 'About', id: 'about-profile' }, { label: 'Skills', id: 'skills' }, { label: 'Experience', id: 'experience' }, { label: 'Work', id: 'work' }, { label: 'Achievements', id: 'achievements' }, { label: 'News Articles', id: 'articles' }, { label: 'Newsletter', id: 'newsletter' }, { label: 'Contact', id: 'contact' }]
+const socialIcons: Record<string, ComponentType> = { Facebook: FaFacebookF, LinkedIn: FaLinkedinIn, Instagram: FaInstagram, Pinterest: FaPinterestP, GitHub: FaGithub, Reddit: FaRedditAlien }
+const navLinks = [{ label: 'About', id: 'about-profile' }, { label: 'Skills', id: 'skills' }, { label: 'Experience', id: 'experience' }, { label: 'Work', id: 'work' }, { label: 'GitHub', id: 'github-activity' }, { label: 'Achievements', id: 'achievements' }, { label: 'News Articles', id: 'articles' }, { label: 'Newsletter', id: 'newsletter' }, { label: 'Contact', id: 'contact' }]
 
 function App() {
   const [dark, setDark] = useState(false)
@@ -133,6 +134,10 @@ function App() {
       <section id="skills" className="skills-section section-anchor">
         <motion.div className="section-heading light-heading" {...reveal}><span className="section-kicker">WHAT I WORK WITH</span><h2>Skills &amp; Expertise<span className="pink-dot">.</span></h2><p>A collection of technologies I’m proficient with, from languages to frameworks and tools.</p></motion.div>
         <div className="skill-groups">{skillGroups.map((group, groupIndex) => <motion.div key={group.name} className="skill-group" {...reveal} transition={{ ...reveal.transition, delay: groupIndex * 0.06 }}><h3>{group.name}<span>{String(group.items.length).padStart(2, '0')}</span></h3><div className="skill-chips">{group.items.map((skill, index) => { const Icon = iconBySkill[skill]; return <motion.div key={skill} className="skill-chip" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: reduceMotion ? 0 : index * 0.035 }}><span className="skill-icon" style={{ color: skillIconColors[skill] }}><Icon /></span><span>{skill}</span></motion.div> })}</div></motion.div>)}</div>
+        <motion.div className="skill-group coding-profiles" {...reveal}>
+          <h3>Coding Profiles</h3>
+          <div className="skill-chips">{profiles.map((profile, index) => { const Icon = profile.icon; return <motion.a key={profile.name} className="skill-chip coding-profile-chip" href={profile.url} target="_blank" rel="noopener noreferrer" aria-label={`${profile.name} profile for ${profile.username}`} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: reduceMotion ? 0 : index * 0.045 }}><span className="skill-icon"><Icon /></span><span className="coding-profile-text">{profile.name}<span className="profile-username"> · {profile.username}</span></span><FiArrowUpRight className="profile-external-icon" aria-hidden="true" /></motion.a> })}</div>
+        </motion.div>
         <div className="section-foot dark-foot"><span>01 — CAPABILITIES</span><span>ALWAYS LEARNING <i /></span></div>
       </section>
 
@@ -149,10 +154,12 @@ function App() {
         <div className="section-foot"><span>03 — SELECTED WORK</span><span>MORE SOON <i /></span></div>
       </section>
 
+      <GithubActivity />
+
       <section id="achievements" className="achievements-section section-anchor">
         <motion.div className="section-heading" {...reveal}><span className="section-kicker">MILESTONES &amp; RECOGNITION</span><h2>Achievements<span>.</span></h2><p>Recognition from robotics competitions and project showcases.</p></motion.div>
         <div className="achievement-list">{achievements.map((achievement, index) => <motion.article className="achievement-card" key={achievement.title} {...reveal} transition={{ ...reveal.transition, delay: index * 0.08 }}><div className="achievement-visuals">{achievement.images.map((img) => <div className="achievement-image" key={img.src}><img src={img.src} alt={img.alt} loading="lazy" /></div>)}<span className="achievement-number">#{String(index + 1).padStart(2, '0')}</span></div><div className="achievement-copy"><span className="achievement-kicker">RECOGNITION · {achievement.year}</span><h3>{achievement.title}</h3><div className="achievement-description"><FiAward /><p>{achievement.description}</p></div><div className="achievement-meta"><div><span>STATUS</span><strong>{achievement.status}</strong></div><div><span>CATEGORY</span><strong>{achievement.category}</strong></div></div><div className="achievement-year"><i /> EVENT YEAR <b>{achievement.year}</b></div></div></motion.article>)}</div>
-        <div className="section-foot"><span>04 — ACHIEVEMENTS</span><span>COMPETITION HIGHLIGHTS <i /></span></div>
+        <div className="section-foot"><span>05 — ACHIEVEMENTS</span><span>COMPETITION HIGHLIGHTS <i /></span></div>
       </section>
 
       <section id="articles" className="articles-section section-anchor">
@@ -161,13 +168,13 @@ function App() {
           <div className="news-story"><h3 lang="bn">{newsArticle.title}</h3><div className="news-body">{newsArticle.paragraphs.map((paragraph) => <p key={paragraph} lang="bn">{paragraph}</p>)}</div><div className="news-buttons">{newsArticle.publications.map((publication) => <a key={publication.name} href={publication.href} target="_blank" rel="noreferrer">{publication.name}<FiArrowUpRight /></a>)}</div></div>
           <div className="news-clippings"><div className="news-clipping-grid">{newsArticle.publications.map((publication, index) => <a key={publication.name} className="news-clipping" href={publication.href} target="_blank" rel="noreferrer" aria-label={`Read coverage from ${publication.name}`}><span className="clipping-index">#{String(index + 1).padStart(2, '0')}</span><img src={publication.image} alt={publication.alt} loading="lazy" /></a>)}</div><span className="news-date">▦ &nbsp;{newsArticle.date}</span></div>
         </motion.article>
-        <div className="section-foot"><span>05 — PRESS &amp; WRITING</span><span>2 PUBLICATIONS <i /></span></div>
+        <div className="section-foot"><span>06 — PRESS &amp; WRITING</span><span>2 PUBLICATIONS <i /></span></div>
       </section>
 
       <section id="newsletter" className="newsletter-section section-anchor">
         <motion.div className="section-heading" {...reveal}><span className="section-kicker">IN THE PRESS · NEWSLETTER FEATURES</span><h2>Newsletter<span>.</span></h2><p>Newsletter coverage and features.</p></motion.div>
         <div className="newsletter-grid">{newsletters.map((item, index) => <motion.a className="newsletter-card" key={item.src} href={item.src} target="_blank" rel="noreferrer" aria-label={`Open newsletter feature ${index + 1}`} {...reveal} transition={{ ...reveal.transition, delay: index * 0.04 }}><span>#{String(index + 1).padStart(2, '0')}</span><img src={item.src} alt={item.alt} loading="lazy" /></motion.a>)}</div>
-        <div className="section-foot"><span>06 — NEWSLETTER</span><span>{String(newsletters.length).padStart(2, '0')} FEATURES <i /></span></div>
+        <div className="section-foot"><span>07 — NEWSLETTER</span><span>{String(newsletters.length).padStart(2, '0')} FEATURES <i /></span></div>
       </section>
 
       <section id="contact" className="contact-section section-anchor">
@@ -183,7 +190,7 @@ function App() {
             {formState === 'success' && <p className="form-feedback success" role="status">Thanks for reaching out. Your message has been sent.</p>}
             {formState === 'error' && <p className="form-feedback" role="status">{import.meta.env.VITE_CONTACT_ENDPOINT ? 'Message delivery failed. Please try again.' : 'Demo mode: add VITE_CONTACT_ENDPOINT in .env.local to enable message delivery.'}</p>}
           </form></div>
-          <div className="social-area"><span className="section-kicker">FIND ME AROUND THE WEB</span><div className="social-grid">{socials.map((social) => { const Icon = socialIcons[social.label]; return <a key={social.label} href={social.href} aria-label={social.label} target="_blank" rel="noreferrer" title={social.label}><Icon /></a> })}</div><p>All social links are placeholders. Swap in your profiles.</p></div>
+          <div className="social-area"><span className="section-kicker">FIND ME AROUND THE WEB</span><div className="social-grid">{socials.map((social) => { const Icon = socialIcons[social.label]; return <a key={social.label} href={social.href} aria-label={social.label} target="_blank" rel="noreferrer" title={social.label}><Icon /></a> })}</div></div>
         </motion.div>
         <div className="contact-footer"><a href="#home" className="wordmark">SC<span>.</span></a><span>MADE WITH INTENTION · 2026</span><a href="#home">BACK TO TOP ↑</a></div>
       </section>

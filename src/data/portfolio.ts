@@ -1,8 +1,19 @@
+import { FaCode } from 'react-icons/fa6'
+import { SiCodechef, SiCodeforces, SiHackerrank, SiLeetcode } from 'react-icons/si'
+
 export const skillGroups = [
   { name: 'Languages', items: ['C', 'C++', 'Java', 'JavaScript', 'TypeScript', 'Python', 'HTML5', 'CSS3'] },
   { name: 'Frameworks & Libraries', items: ['React', 'Next.js', 'Node.js', 'Express', 'Flutter', 'Tailwind CSS', 'Framer Motion'] },
   { name: 'Databases', items: ['MongoDB', 'MySQL', 'PostgreSQL'] },
   { name: 'Tools & Platforms', items: ['Git', 'GitHub', 'Docker', 'Linux', 'Arduino', 'Postman', 'Figma', 'AWS'] },
+]
+
+export const profiles = [
+  { name: 'Codeforces', username: 'Shahriarc224', url: 'https://codeforces.com/profile/Shahriarc224', icon: SiCodeforces },
+  { name: 'HackerRank', username: 'shahriarc224', url: 'https://www.hackerrank.com/profile/shahriarc224', icon: SiHackerrank },
+  { name: 'LeetCode', username: 'Shahriarc224', url: 'https://leetcode.com/u/Shahriarc224/', icon: SiLeetcode },
+  { name: 'CodeChef', username: 'shahriarc224', url: 'https://www.codechef.com/users/shahriarc224', icon: SiCodechef },
+  { name: 'Beecrowd', username: '936511', url: 'https://judge.beecrowd.com/en/profile/936511', icon: FaCode },
 ]
 
 export const journeyEntries = [
@@ -12,13 +23,12 @@ export const journeyEntries = [
 ]
 
 export const socials = [
-  { label: 'Facebook', href: 'https://facebook.com/your-profile' },
-  { label: 'Instagram', href: 'https://instagram.com/your-profile' },
-  { label: 'WhatsApp', href: 'https://wa.me/0000000000' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/your-profile' },
-  { label: 'Discord', href: 'https://discord.com/users/your-id' },
-  { label: 'X (Twitter)', href: 'https://x.com/your-profile' },
-  { label: 'Reddit', href: 'https://reddit.com/user/your-profile' },
+  { label: 'Facebook', href: 'https://www.facebook.com/shahriar.chowdhury.641274' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/md-shahriar-chowdhury-129778305/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/shahriar_tahin/' },
+  { label: 'Pinterest', href: 'https://pin.it/4dYGp0Qfl' },
+  { label: 'GitHub', href: 'https://github.com/shahriarc224' },
+  { label: 'Reddit', href: 'https://www.reddit.com/user/sam_c224/?screen_view_count=1&ext-referrer=SEO' },
 ]
 
 export const projects: { title: string; description: string; href: string }[] = []
