@@ -9,8 +9,6 @@ button, input, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 3px solid #f5c518; outline-offset: 4px; }
 .site-shell { overflow: clip; min-height: 100vh; }
-.cursor-grid.site-cursor-grid { min-height: 100vh; }
-.site-cursor-grid > .cursor-grid__content { height: auto; }
 .section-anchor { scroll-margin-top: 74px; }
 .topbar { height: 76px; padding: 0 clamp(22px, 6vw, 92px); display: flex; align-items: center; justify-content: space-between; position: sticky; z-index: 20; top: 0; background: color-mix(in srgb, var(--cream) 88%, transparent); backdrop-filter: blur(16px); border-bottom: 1px solid color-mix(in srgb, var(--ink) 9%, transparent); }
 .skills-marquee { width: calc(100% - 4.8vw); margin: 18px auto 0; overflow: hidden; border: 1px solid #262626; background: #090909; color: #f5f5f5; }
@@ -82,7 +80,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-stamp svg,.tool-ribbon svg:hover { color: var(--orange); }
 .button-primary span,.button-note>i,.section-foot i,.empty-orbit i,.empty-orbit i:nth-child(2),.empty-orbit i:nth-child(3) { background-color: var(--orange); }
 .empty-orbit,.empty-orbit::before,.empty-orbit::after { border-color: color-mix(in srgb, var(--ink) 20%, transparent); }
-main { background-color: transparent; background-image: linear-gradient(color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1px); background-size: 72px 72px; background-attachment: fixed; }
+main { background-color: var(--cream); background-image: linear-gradient(color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1px); background-size: 72px 72px; background-attachment: fixed; }
 .hero,.skills-section,.journey-section,.work-section,.contact-section { background-color: transparent; background-image: none; }
 .hero { min-height: min(760px, calc(100svh - 76px)); display: flex; align-items: center; }
 .hero-inner { width: min(1240px, 86%); padding: clamp(70px, 9vh, 110px) 0; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, .82fr); align-items: center; gap: clamp(32px, 6vw, 90px); }

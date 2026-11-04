@@ -4,7 +4,6 @@ import { FiArrowDownRight, FiArrowUpRight, FiAward, FiCheck, FiMail, FiMenu, FiM
 import { FaAws, FaFacebookF, FaFigma, FaGithub, FaInstagram, FaLinkedinIn, FaLinux, FaPinterestP, FaRedditAlien } from 'react-icons/fa6'
 import { SiArduino, SiC, SiCplusplus, SiCss, SiDocker, SiExpress, SiFlutter, SiFramer, SiGit, SiHtml5, SiJavascript, SiMongodb, SiMysql, SiNextdotjs, SiNodedotjs, SiOpenjdk, SiPostgresql, SiPostman, SiPython, SiReact, SiTailwindcss, SiTypescript } from 'react-icons/si'
 import GithubActivity from './components/GithubActivity'
-import CursorGrid from './components/CursorGrid'
 import { achievements, journeyEntries, newsArticle, newsletters, profiles, projects, skillGroups, socials } from './data/portfolio'
 
 const Shuffle = lazy(() => import('./components/Shuffle'))
@@ -75,8 +74,7 @@ function App() {
   const reveal = { initial: { opacity: 0, y: reduceMotion ? 0 : 22 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.18 }, transition: { duration: reduceMotion ? 0 : 0.55 } }
   const headlineReveal = { initial: { opacity: 0, y: reduceMotion ? 0 : 28 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.45 }, transition: { duration: reduceMotion ? 0 : 0.65, ease: [0.22, 1, 0.36, 1] as const } }
 
-  return <CursorGrid className="site-cursor-grid" cellSize={72} color={dark ? '#ff783e' : '#242424'} gridColor={dark ? '#ff783e' : '#242424'} radius={150} highlight="area" gridStyle="lines" holdTime={300} fadeDuration={700} fillOpacity={0.08} gridOpacity={0.025} spotlight={0.75} maxOpacity={0.72} clickPulse pulseSpeed={650} edgeFade={0.08} dpr={1} lightMode={!dark}>
-    <div className="site-shell">
+  return <div className="site-shell">
     <header className="topbar">
       <a className="wordmark" href="#home" aria-label="Shahriar Chowdhury home">SC<span>.</span></a>
       <nav className={`nav-links ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation">
@@ -208,8 +206,7 @@ function App() {
         <div className="contact-footer"><a href="#home" className="wordmark">SC<span>.</span></a><span>MADE WITH INTENTION · 2026</span><a href="#home">BACK TO TOP ↑</a></div>
       </section>
     </main>
-    </div>
-  </CursorGrid>
+  </div>
 }
 
 export default App
