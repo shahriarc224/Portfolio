@@ -162,3 +162,6 @@ main { background-image: linear-gradient(color-mix(in srgb, var(--ink) 11%, tran
 .articles-section .section-foot { margin-top: 0; }
 :root[data-theme='light'] .news-feature { background: #101010; color: #f5f5f5; }
 @media (max-width: 700px) { .articles-section { padding-top: 76px; }.news-feature { grid-template-columns: 1fr; gap: 18px; margin: 32px auto 45px; padding: 13px; }.news-story h3 { font-size: 19px; }.news-body { padding: 12px; }.news-body p { font-size: 11px; line-height: 1.85; }.news-clippings { padding: 0; }.news-clipping { height: min(57vw,260px); }.news-date { align-self: center; } }
+.skills-section .skill-chip { gap: 9px; }
+.skills-section .skill-icon { display: grid; flex: 0 0 22px; width: 22px; height: 22px; place-items: center; }
+.skills-section .skill-group .skill-chip .skill-icon svg { display: block; width: 17px; height: 17px; color: inherit !important; background: transparent !important; }

@@ -8,6 +8,9 @@ import { achievements, journeyEntries, newsArticle, projects, skillGroups, socia
 const iconBySkill: Record<string, ComponentType<{ className?: string }>> = {
   C: SiC, 'C++': SiCplusplus, Java: SiOpenjdk, JavaScript: SiJavascript, TypeScript: SiTypescript, Python: SiPython, HTML5: SiHtml5, CSS3: SiCss, React: SiReact, 'Next.js': SiNextdotjs, 'Node.js': SiNodedotjs, Express: SiExpress, Flutter: SiFlutter, 'Tailwind CSS': SiTailwindcss, 'Framer Motion': SiFramer, MongoDB: SiMongodb, MySQL: SiMysql, PostgreSQL: SiPostgresql, Git: SiGit, GitHub: FaGithub, Docker: SiDocker, Linux: FaLinux, Arduino: SiArduino, Postman: SiPostman, Figma: FaFigma, AWS: FaAws,
 }
+const skillIconColors: Record<string, string> = {
+  C: '#A8B9CC', 'C++': '#00599C', Java: '#ED8B00', JavaScript: '#F7DF1E', TypeScript: '#3178C6', Python: '#3776AB', HTML5: '#E34F26', CSS3: '#1572B6', React: '#61DAFB', 'Next.js': 'var(--ink)', 'Node.js': '#5FA04E', Express: 'var(--ink)', Flutter: '#02569B', 'Tailwind CSS': '#06B6D4', 'Framer Motion': '#0055FF', MongoDB: '#47A248', MySQL: '#4479A1', PostgreSQL: '#4169E1', Git: '#F05032', GitHub: 'var(--ink)', Docker: '#2496ED', Linux: '#FCC624', Arduino: '#00979D', Postman: '#FF6C37', Figma: '#F24E1E', AWS: '#FF9900',
+}
 const socialIcons: Record<string, ComponentType> = { Facebook: FaFacebookF, Instagram: FaInstagram, WhatsApp: FaWhatsapp, LinkedIn: FaLinkedinIn, Discord: FaDiscord, 'X (Twitter)': FaXTwitter, Reddit: FaRedditAlien }
 const navLinks = [{ label: 'About', id: 'about' }, { label: 'Skills', id: 'skills' }, { label: 'Experience', id: 'experience' }, { label: 'Work', id: 'work' }, { label: 'Achievements', id: 'achievements' }, { label: 'News Articles', id: 'articles' }, { label: 'Contact', id: 'contact' }]
 
@@ -85,14 +88,14 @@ function App() {
             </motion.div>
           </div>
           <motion.figure className="hero-photo" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.65, delay: 0.35 }}>
-            <img src="/shahriar-portrait.jpeg" alt="Portrait of Md. Shahriar Chowdhury" fetchPriority="high" />
+            <img src="/Images/shahriar-portrait.jpeg" alt="Portrait of Md. Shahriar Chowdhury" fetchPriority="high" />
           </motion.figure>
         </div>
       </section>
 
       <section id="skills" className="skills-section section-anchor">
         <motion.div className="section-heading light-heading" {...reveal}><span className="section-kicker">WHAT I WORK WITH</span><h2>Skills &amp; Expertise<span className="pink-dot">.</span></h2><p>A collection of technologies I’m proficient with, from languages to frameworks and tools.</p></motion.div>
-        <div className="skill-groups">{skillGroups.map((group, groupIndex) => <motion.div key={group.name} className="skill-group" {...reveal} transition={{ ...reveal.transition, delay: groupIndex * 0.06 }}><h3>{group.name}<span>{String(group.items.length).padStart(2, '0')}</span></h3><div className="skill-chips">{group.items.map((skill, index) => { const Icon = iconBySkill[skill]; return <motion.div key={skill} className="skill-chip" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: reduceMotion ? 0 : index * 0.035 }}><Icon /><span>{skill}</span></motion.div> })}</div></motion.div>)}</div>
+        <div className="skill-groups">{skillGroups.map((group, groupIndex) => <motion.div key={group.name} className="skill-group" {...reveal} transition={{ ...reveal.transition, delay: groupIndex * 0.06 }}><h3>{group.name}<span>{String(group.items.length).padStart(2, '0')}</span></h3><div className="skill-chips">{group.items.map((skill, index) => { const Icon = iconBySkill[skill]; return <motion.div key={skill} className="skill-chip" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: reduceMotion ? 0 : index * 0.035 }}><span className="skill-icon" style={{ color: skillIconColors[skill] }}><Icon /></span><span>{skill}</span></motion.div> })}</div></motion.div>)}</div>
         <div className="section-foot dark-foot"><span>01 — CAPABILITIES</span><span>ALWAYS LEARNING <i /></span></div>
       </section>
 
