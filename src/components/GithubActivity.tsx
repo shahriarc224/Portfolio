@@ -83,7 +83,7 @@ export default function GithubActivity() {
           </motion.article>
         </div>
       </div>
-      <div className="github-section-foot"><span>04 — OPEN SOURCE</span><span>LIVE FROM GITHUB <i /></span></div>
+      <div className="github-section-foot"><span>05 — OPEN SOURCE</span><span>LIVE FROM GITHUB <i /></span></div>
     </> : <motion.div className={`github-setup-state ${error ? 'is-error' : ''}`} {...reveal} role="status">{error ? <>Add <code>GITHUB_TOKEN</code> to the server environment to load live stats. See the setup steps in the README.</> : 'Connecting to GitHub…'}</motion.div>}
   </section>
 }

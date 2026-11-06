@@ -11,6 +11,10 @@ button, input, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 3px solid #f5c518; outline-offset: 4px; }
 .site-shell { overflow: clip; min-height: 100vh; }
+.iot-projects-section { min-height: 250px; padding: 92px max(7vw, calc((100vw - 1160px)/2)) 24px; background: var(--cream); color: var(--ink); }
+.iot-projects-section .section-heading h2 { color: var(--orange); font: 700 clamp(43px,7vw,78px)/1 'Space Grotesk',sans-serif; letter-spacing: -.07em; margin: 17px 0 40px; }
+.iot-projects-section .section-heading h2 span { color: var(--orange); }
+.iot-projects-section .section-foot { margin-top: 0; }
 .signature-mark { position: fixed; z-index: 50; left: max(24px, env(safe-area-inset-left)); bottom: max(17px, env(safe-area-inset-bottom)); color: var(--ink); font: 600 34px/.9 'Caveat', cursive; letter-spacing: .01em; transform: rotate(-8deg); opacity: .78; text-shadow: 0 0 18px color-mix(in srgb,var(--orange) 24%,transparent); transition: color .2s,opacity .2s,transform .2s; }
 .signature-mark:hover { color: var(--orange); opacity: 1; transform: rotate(-5deg) translateY(-2px); }
 .section-anchor { scroll-margin-top: 74px; }
@@ -50,7 +54,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero { background-color: var(--cream); color: var(--ink); background-image: linear-gradient(color-mix(in srgb, var(--ink) 8%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--ink) 8%, transparent) 1px, transparent 1px), radial-gradient(ellipse 43% 48% at 73% 57%, color-mix(in srgb, var(--orange) 15%, transparent), transparent 72%); }
 .hero-period,.pink-dot,.journey-heading h2,.journey-heading h2 span,.timeline-card h3,.timeline-date,.placeholder-badge { color: var(--orange); }
 .button-primary span,.hero-period,.work-title h2 span,.empty-work h3 span,.wordmark span { color: var(--orange); }
-.skills-section,.journey-section,.work-section,.contact-section { background: var(--cream); color: var(--ink); }
+.skills-section,.journey-section,.iot-projects-section,.work-section,.contact-section { background: var(--cream); color: var(--ink); }
 .skills-section .section-heading h2,.skills-section .skill-group h3,.skills-section .skill-chip,.journey-section .section-heading h2,.journey-section .timeline-card h3,.journey-section .timeline-card .timeline-org,.work-section .work-title h2,.work-section .empty-work h3,.contact-section .contact-intro h2 { color: var(--ink); }
 .skills-section .section-heading p,.journey-section .section-heading p,.timeline-card p,.timeline-date,.timeline-card .timeline-org,.work-topline,.empty-work p,.empty-index,.contact-intro>p,.contact-coordinates span,.contact-coordinates b,.section-kicker { color: var(--muted); }
 .skills-section .pink-dot,.journey-section .journey-heading h2,.journey-section .journey-heading h2 span,.journey-section .timeline-card h3,.journey-section .timeline-date,.journey-section .placeholder-badge,.work-section .work-title h2 span,.work-section .empty-work h3 span { color: var(--orange); }
@@ -86,7 +90,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .button-primary span,.button-note>i,.section-foot i,.empty-orbit i,.empty-orbit i:nth-child(2),.empty-orbit i:nth-child(3) { background-color: var(--orange); }
 .empty-orbit,.empty-orbit::before,.empty-orbit::after { border-color: color-mix(in srgb, var(--ink) 20%, transparent); }
 main { background-color: var(--cream); background-image: linear-gradient(color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1px); background-size: 72px 72px; background-attachment: fixed; }
-.hero,.skills-section,.journey-section,.work-section,.contact-section { background-color: transparent; background-image: none; }
+.hero,.skills-section,.journey-section,.iot-projects-section,.work-section,.contact-section { background-color: transparent; background-image: none; }
 .hero { min-height: min(760px, calc(100svh - 76px)); display: flex; align-items: center; }
 .hero-inner { width: min(1240px, 86%); padding: clamp(70px, 9vh, 110px) 0; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, .82fr); align-items: center; gap: clamp(32px, 6vw, 90px); }
 .hero-copy { min-width: 0; }
@@ -97,7 +101,7 @@ main { background-color: var(--cream); background-image: linear-gradient(color-m
 .hero-photo { margin: 0; width: 100%; aspect-ratio: 1 / 1; border: 1px solid var(--orange); box-shadow: 12px 12px 0 color-mix(in srgb, var(--orange) 28%, transparent); overflow: hidden; background: color-mix(in srgb, var(--ink) 6%, var(--cream)); }
 .hero-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 38%; }
 @media (max-width: 850px) { .hero { min-height: 650px; }.hero-inner { width: 88%; grid-template-columns: minmax(0, 1fr) minmax(210px, .72fr); gap: 28px; padding-top: 90px; }.hero h1 { font-size: clamp(48px, 7.3vw, 66px); }.hero-bottom p { font-size: clamp(16px, 2vw, 20px); } }
-@media (max-width: 620px) { .hero { min-height: 0; }.hero-inner { width: 88%; grid-template-columns: 1fr; gap: 32px; padding: 76px 0 65px; }.hero h1 { font-size: clamp(46px, 11.7vw, 66px); line-height: .88; }.hero-bottom { margin-top: 25px; }.hero-bottom p { font-size: 17px; line-height: 1.5; }.hero-photo { width: min(76vw, 350px); justify-self: center; box-shadow: 8px 8px 0 color-mix(in srgb, var(--orange) 28%, transparent); } }
+@media (max-width: 620px) { .hero { min-height: 0; }.hero-inner { width: 88%; grid-template-columns: 1fr; gap: 32px; padding: 76px 0 65px; }.hero h1 { font-size: clamp(46px, 11.7vw, 66px); line-height: .88; }.hero-bottom { margin-top: 25px; }.hero-bottom p { font-size: 17px; line-height: 1.5; }.hero-photo { width: min(76vw, 350px); justify-self: center; box-shadow: 8px 8px 0 color-mix(in srgb, var(--orange) 28%, transparent); }.iot-projects-section { min-height: 225px; padding: 76px 22px 22px; }.iot-projects-section .section-heading h2 { font-size: 45px; margin-bottom: 34px; } }
 main { background-image: linear-gradient(color-mix(in srgb, var(--ink) 11%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--ink) 11%, transparent) 1px, transparent 1px); }
 .skills-section { padding-top: 96px; }
 .skills-section .section-heading h2 { font-size: clamp(34px, 4vw, 42px); letter-spacing: -.055em; margin: 13px 0 14px; }
