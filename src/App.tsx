@@ -82,7 +82,7 @@ function App() {
         {navLinks.map((link) => <a key={link.id} className={active === link.id ? 'active' : ''} href={`#${link.id}`} onClick={() => setMenuOpen(false)}>{link.label}</a>)}
       </nav>
       <div className="nav-actions">
-        <label className="theme-picker-label" aria-label="Choose website color theme"><FiSun /><select className="theme-picker" value={theme} onChange={(event) => changeTheme(event.target.value as 'light' | 'dark' | 'blue' | 'red')} aria-label="Website color theme"><option value="light">White</option><option value="dark">Black</option><option value="blue">Blue</option><option value="red">Red</option></select></label>
+        <label className="theme-picker-label" aria-label="Choose website color theme"><FiSun /><select className="theme-picker" value={theme} onChange={(event) => changeTheme(event.target.value as 'light' | 'dark' | 'blue' | 'red')} aria-label="Website color theme"><option value="light">White</option><option value="dark">Orange</option><option value="blue">Blue</option><option value="red">Red</option></select></label>
         <a className="resume-link" href="/resume.pdf" download>Résumé PDF <FiArrowDownRight /></a>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen}>{menuOpen ? <FiX /> : <FiMenu />}</button>
       </div>
