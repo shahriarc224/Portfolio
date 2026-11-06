@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState, type ComponentType, type FormEvent } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion'
-import { FiArrowDownRight, FiArrowUpRight, FiAward, FiCheck, FiMail, FiMenu, FiMoon, FiPlay, FiSun, FiX } from 'react-icons/fi'
+import { FiArrowDownRight, FiArrowUpRight, FiAward, FiCheck, FiMail, FiMenu, FiPlay, FiSun, FiX } from 'react-icons/fi'
 import { FaAws, FaFacebookF, FaFigma, FaGithub, FaInstagram, FaLinkedinIn, FaLinux, FaPinterestP, FaRedditAlien } from 'react-icons/fa6'
 import { SiArduino, SiC, SiCplusplus, SiCss, SiDocker, SiExpress, SiFlutter, SiFramer, SiGit, SiHtml5, SiJavascript, SiMongodb, SiMysql, SiNextdotjs, SiNodedotjs, SiOpenjdk, SiPostgresql, SiPostman, SiPython, SiReact, SiTailwindcss, SiTypescript } from 'react-icons/si'
 import GithubActivity from './components/GithubActivity'
@@ -26,7 +26,7 @@ const socialIcons: Record<string, ComponentType> = { Facebook: FaFacebookF, Link
 const navLinks = [{ label: 'About', id: 'about-profile' }, { label: 'Skills', id: 'skills' }, { label: 'Experience', id: 'experience' }, { label: 'Work', id: 'work' }, { label: 'GitHub', id: 'github-activity' }, { label: 'Achievements', id: 'achievements' }, { label: 'News Articles', id: 'articles' }, { label: 'Newsletter', id: 'newsletter' }, { label: 'Contact', id: 'contact' }]
 
 function App() {
-  const [dark, setDark] = useState(false)
+  const [theme, setTheme] = useState<'light' | 'dark' | 'blue' | 'red'>('dark')
   const [menuOpen, setMenuOpen] = useState(false)
   const [active, setActive] = useState('about')
   const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -37,19 +37,20 @@ function App() {
 
   useEffect(() => {
     const saved = localStorage.getItem('portfolio-theme')
-    const initial = saved ? saved === 'dark' : true
-    setDark(initial)
-    document.documentElement.dataset.theme = initial ? 'dark' : 'light'
+    const initial = saved === 'light' || saved === 'blue' || saved === 'red' || saved === 'dark' ? saved : 'dark'
+    setTheme(initial)
+    document.documentElement.dataset.theme = initial === 'light' ? 'light' : 'dark'
+    document.documentElement.dataset.accent = initial === 'blue' || initial === 'red' ? initial : 'orange'
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) setActive(entry.target.id) }), { rootMargin: '-30% 0px -60% 0px' })
     navLinks.forEach(({ id }) => { const section = document.getElementById(id); if (section) observer.observe(section) })
     return () => observer.disconnect()
   }, [])
 
-  function toggleTheme() {
-    const next = !dark
-    setDark(next)
-    document.documentElement.dataset.theme = next ? 'dark' : 'light'
-    localStorage.setItem('portfolio-theme', next ? 'dark' : 'light')
+  function changeTheme(next: 'light' | 'dark' | 'blue' | 'red') {
+    setTheme(next)
+    document.documentElement.dataset.theme = next === 'light' ? 'light' : 'dark'
+    document.documentElement.dataset.accent = next === 'blue' || next === 'red' ? next : 'orange'
+    localStorage.setItem('portfolio-theme', next)
   }
 
   async function submitMessage(event: FormEvent<HTMLFormElement>) {
@@ -74,14 +75,14 @@ function App() {
   const reveal = { initial: { opacity: 0, y: reduceMotion ? 0 : 22 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.18 }, transition: { duration: reduceMotion ? 0 : 0.55 } }
   const headlineReveal = { initial: { opacity: 0, y: reduceMotion ? 0 : 28 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.45 }, transition: { duration: reduceMotion ? 0 : 0.65, ease: [0.22, 1, 0.36, 1] as const } }
 
-  return <div className="site-shell">
+  return <><div className="site-shell">
     <header className="topbar">
       <a className="wordmark" href="#home" aria-label="Shahriar Chowdhury home">SC<span>.</span></a>
       <nav className={`nav-links ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation">
         {navLinks.map((link) => <a key={link.id} className={active === link.id ? 'active' : ''} href={`#${link.id}`} onClick={() => setMenuOpen(false)}>{link.label}</a>)}
       </nav>
       <div className="nav-actions">
-        <button className="theme-toggle" onClick={toggleTheme} aria-label={`Switch to ${dark ? 'light' : 'dark'} theme`}>{dark ? <FiMoon /> : <FiSun />}</button>
+        <label className="theme-picker-label" aria-label="Choose website color theme"><FiSun /><select className="theme-picker" value={theme} onChange={(event) => changeTheme(event.target.value as 'light' | 'dark' | 'blue' | 'red')} aria-label="Website color theme"><option value="light">White</option><option value="dark">Black</option><option value="blue">Blue</option><option value="red">Red</option></select></label>
         <a className="resume-link" href="/resume.pdf" download>Résumé PDF <FiArrowDownRight /></a>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen}>{menuOpen ? <FiX /> : <FiMenu />}</button>
       </div>
@@ -206,7 +207,7 @@ function App() {
         <div className="contact-footer"><a href="#home" className="wordmark">SC<span>.</span></a><span>MADE WITH INTENTION · 2026</span><a href="#home">BACK TO TOP ↑</a></div>
       </section>
     </main>
-  </div>
+  </div><a className="signature-mark" href="#home" aria-label="Shahriar signature — back to top">Shahriar</a></>
 }
 
 export default App
